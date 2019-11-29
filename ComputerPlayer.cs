@@ -19,7 +19,7 @@ namespace juegoIA
 		{
 			// Cargar el árbol
             // Se va a llamar recursivamente hasta que no haya más cartas para agregar o que supere el límite
-            if (cartasPropias.Count != 0 & cartasOponente.Count != 0 | limite < 0)
+            if (cartasPropias.Count != 0 & cartasOponente.Count != 0 | limite > 0)
             {
                 // Recorro cada carta del oponente, para agregarla en el nodo padre
                 foreach (int carta in cartasOponente)
