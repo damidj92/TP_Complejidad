@@ -18,8 +18,8 @@ namespace juegoIA
 		public override void incializar(List<int> cartasPropias, List<int> cartasOponente, int limite)
 		{
 			// Cargar el árbol
-            // Se va a llamar recursivamente hasta que no haya más cartas para agregar o que supere el límite
-            if (cartasPropias.Count != 0 & cartasOponente.Count != 0 | limite > 0)
+            // Se va a llamar recursivamente hasta que no haya más cartas para agregar o que el límite sea menor a 0
+            if (cartasPropias.Count != 0 & cartasOponente.Count != 0 | limite >= 0)
             {
                 // Recorro cada carta del oponente, para agregarla en el nodo padre
                 foreach (int carta in cartasOponente)
