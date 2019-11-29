@@ -1,13 +1,10 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace juegoIA
 {
-
-	public class HumanPlayer : Jugador
+    public class HumanPlayer : Jugador
 	{
 		private List<int> naipes = new List<int>();
 		private List<int> naipesComputer = new List<int>();

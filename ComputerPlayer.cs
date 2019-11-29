@@ -27,14 +27,37 @@ namespace juegoIA
 				
 		public override int descartarUnaCarta()
 		{
-			//Implementar. La carta que va a jugar la máquina.
-			return 0;
+            float mayor = 0;
+            ArbolGeneral auxArbol = new ArbolGeneral(0, 0, false);
+
+            // Como el turno anterior fue del usuario, la raiz ahora es una carta de Human
+            // Por lo tanto, los hijos son las cartas que puede jugar Computer
+            foreach(ArbolGeneral arbol in minimax.getHijos())
+            {
+                if(arbol.getPonderacionRaiz() > mayor)
+                {
+                    mayor = arbol.getPonderacionRaiz();
+                    auxArbol = arbol;
+                }
+            }
+            return auxArbol.getNumCartaRaiz();
 		}
 		
 		public override void cartaDelOponente(int carta)
 		{
-			//Implementar. Obtengo la carta que juega el oponente para ir moviendo la raíz.
-		}
+            // Como el primer turno es el de Human, este va a descartar una carta, que será recibida por el metodo
+            // Entonces busco en los hijos de la raíz(Computer) la carta de Human
+            foreach(ArbolGeneral hijos in minimax.getHijos())
+            {
+                // Si el numero de carta de uno de los hijos coincide con la carta recibida
+                // entonces mi arbol minimax va a empezar por el nodo que corresponde a la carta de Human
+                if(hijos.getNumCartaRaiz() == carta)
+                {
+                    this.setMinimax(hijos);
+                }
+            }
+
+        }
 
         public void cargarArbol(ArbolGeneral arbol, List<int> cartasPropias, List<int> cartasOponente, int limite, bool turno)
         {
@@ -96,6 +119,11 @@ namespace juegoIA
                     hijos.setPonderacionRaiz(suma / hijos.getHijos().Count);
                 }
             }
+        }
+
+        public void setMinimax(ArbolGeneral unArbol)
+        {
+            this.minimax = unArbol;
         }
     }
 }

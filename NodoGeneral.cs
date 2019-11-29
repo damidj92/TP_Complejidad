@@ -3,9 +3,6 @@ using System.Collections.Generic;
 
 namespace juegoIA
 {
-    /// <summary>
-    /// Description of NodoGeneral.
-    /// </summary>
     public class NodoGeneral
     {
         private int numCarta; // Numero de carta
