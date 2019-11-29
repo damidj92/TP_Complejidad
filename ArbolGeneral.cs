@@ -8,9 +8,9 @@ namespace juegoIA
 
         private NodoGeneral raiz;
 
-        public ArbolGeneral(int carta, int lim)
+        public ArbolGeneral(int carta, int lim, bool unTurno)
         {
-            this.raiz = new NodoGeneral(carta, lim);
+            this.raiz = new NodoGeneral(carta, lim, unTurno);
         }
 
         private ArbolGeneral(NodoGeneral nodo)
@@ -33,9 +33,19 @@ namespace juegoIA
             return this.getRaiz().getLimite();
         }
 
+        public bool getTurnoRaiz()
+        {
+            return this.getRaiz().getTurno();
+        }
+
         public float getPonderacionRaiz()
         {
             return this.getRaiz().getPonderacion();
+        }
+
+        public void setPonderacionRaiz(float dato)
+        {
+            this.raiz.setPonderacion(dato);
         }
 
         public List<ArbolGeneral> getHijos()

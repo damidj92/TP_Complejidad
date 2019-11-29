@@ -8,15 +8,18 @@ namespace juegoIA
     /// </summary>
     public class NodoGeneral
     {
-        private int numCarta;
-        private int limite;
-        private float ponderacion;
+        private int numCarta; // Numero de carta
+        private int limite; // Guarda el límite llegado a ese nodo
+        private bool turno; // True para Human, False para Computer
+        private float ponderacion;  // Si es hoja, es igual a 1 si gana Computer y 0 si gana Human
+                                    // Si tiene hijos, sumo las ponderaciones de los hijos y divido por la cantidad de hijos
         private List<NodoGeneral> hijos;
 
-        public NodoGeneral(int carta, int lim)
+        public NodoGeneral(int carta, int lim, bool unTurno)
         {
             this.numCarta = carta;
             this.limite = lim;
+            this.turno = unTurno;
             this.ponderacion = 0;
             this.hijos = new List<NodoGeneral>();
         }
@@ -29,6 +32,11 @@ namespace juegoIA
         public int getLimite()
         {
             return this.limite;
+        }
+
+        public bool getTurno()
+        {
+            return this.turno;
         }
 
         public float getPonderacion()
@@ -49,6 +57,11 @@ namespace juegoIA
         public void setLimite (int dato)
         {
             this.limite = dato;
+        }
+
+        public void setTurno(bool unTurno)
+        {
+            this.turno = unTurno;
         }
 
         public void setPonderacion(float dato)
