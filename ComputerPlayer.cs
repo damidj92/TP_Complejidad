@@ -12,7 +12,7 @@ namespace juegoIA
 		public ComputerPlayer()
 		{
             // Instancio la variable minimax con un nodo raíz en 0
-            this.minimax = new ArbolGeneral(0);
+            this.minimax = new ArbolGeneral(0,0);
 		}
 		
 		public override void incializar(List<int> cartasPropias, List<int> cartasOponente, int limite)
@@ -25,7 +25,7 @@ namespace juegoIA
                 foreach (int carta in cartasOponente)
                 {
                     // Creo un nodo de tipo ArbolGeneral para agregar al árbol minimax
-                    ArbolGeneral nodoCarta = new ArbolGeneral(carta);
+                    ArbolGeneral nodoCarta = new ArbolGeneral(carta, lim-carta);
 
                     minimax.agregarHijo(nodoCarta);
 
@@ -40,6 +40,9 @@ namespace juegoIA
                     // LLamo nuevamente al metodo, 
                     // pero invirtiendo el orden de las cartasPropias por las cartasOponente(aux)
                     this.incializar(aux, cartasPropias, limite);
+
+                    // Ponderación del árbol
+
                 }
             }
 

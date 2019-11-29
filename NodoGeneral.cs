@@ -13,9 +13,10 @@ namespace juegoIA
         private float ponderacion;
         private List<NodoGeneral> hijos;
 
-        public NodoGeneral(int dato)
+        public NodoGeneral(int carta, int lim)
         {
-            this.numCarta = dato;
+            this.numCarta = carta;
+            this.limite = lim;
             this.ponderacion = 0;
             this.hijos = new List<NodoGeneral>();
         }
@@ -23,6 +24,11 @@ namespace juegoIA
         public int getNumCarta()
         {
             return this.numCarta;
+        }
+
+        public int getLimite()
+        {
+            return this.limite;
         }
 
         public float getPonderacion()
@@ -38,6 +44,11 @@ namespace juegoIA
         public void setNumCarta(int dato)
         {
             this.numCarta = dato;
+        }
+
+        public void setLimite (int dato)
+        {
+            this.limite = dato;
         }
 
         public void setPonderacion(float dato)
