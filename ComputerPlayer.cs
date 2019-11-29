@@ -19,20 +19,20 @@ namespace juegoIA
 		{
             // Cargar el arbol
             bool turnoOponente = true;
-            this.cargarArbol(minimax, cartasPropias, cartasOponente, limite, turnoOponente);
+            this.cargarArbol(this.minimax, cartasPropias, cartasOponente, limite, turnoOponente);
 
             // Ponderar el arbol
-            this.ponderarArbol(minimax);
+            this.ponderarArbol(this.minimax);
         }
 				
 		public override int descartarUnaCarta()
 		{
             float mayor = 0;
-            ArbolGeneral auxArbol = new ArbolGeneral(0, 0, false);
+            ArbolGeneral auxArbol = new ArbolGeneral(0,0,false);
 
             // Como el turno anterior fue del usuario, la raiz ahora es una carta de Human
             // Por lo tanto, los hijos son las cartas que puede jugar Computer
-            foreach(ArbolGeneral arbol in minimax.getHijos())
+            foreach(ArbolGeneral arbol in this.minimax.getHijos())
             {
                 if(arbol.getPonderacionRaiz() > mayor)
                 {
@@ -40,6 +40,9 @@ namespace juegoIA
                     auxArbol = arbol;
                 }
             }
+
+            this.setMinimax(auxArbol);
+
             return auxArbol.getNumCartaRaiz();
 		}
 		
@@ -47,7 +50,7 @@ namespace juegoIA
 		{
             // Como el primer turno es el de Human, este va a descartar una carta, que será recibida por el metodo
             // Entonces busco en los hijos de la raíz(Computer) la carta de Human
-            foreach(ArbolGeneral hijos in minimax.getHijos())
+            foreach(ArbolGeneral hijos in this.minimax.getHijos())
             {
                 // Si el numero de carta de uno de los hijos coincide con la carta recibida
                 // entonces mi arbol minimax va a empezar por el nodo que corresponde a la carta de Human
@@ -72,7 +75,7 @@ namespace juegoIA
 
                     // Creo un nodo de tipo ArbolGeneral para agregar al árbol minimax
                     ArbolGeneral nodoCarta = new ArbolGeneral(carta, limite, turno);
-                    minimax.agregarHijo(nodoCarta);
+                    this.minimax.agregarHijo(nodoCarta);
 
                     // Una vez agregado debo sacarlo de la lista cartasOponente
                     List<int> aux = new List<int>(cartasOponente);
@@ -80,7 +83,7 @@ namespace juegoIA
 
                     // LLamo nuevamente al metodo 
                     // pero invirtiendo el orden de las cartasPropias por las cartasOponente(aux)
-                    this.cargarArbol(minimax, aux, cartasPropias, limite, !turno);
+                    this.cargarArbol(this.minimax, aux, cartasPropias, limite, !turno);
                 }
             }
         }
@@ -108,7 +111,7 @@ namespace juegoIA
             // entonces voy a poder calcular la ponderación de cada nodo padre
             else
             {
-                foreach(ArbolGeneral hijos in arbol.getHijos())
+                foreach (ArbolGeneral hijos in arbol.getHijos())
                 {
                     ponderarArbol(hijos);
                     float suma = 0;
