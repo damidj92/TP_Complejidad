@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,6 +29,8 @@ namespace juegoIA
 				
 		public override int descartarUnaCarta()
 		{
+            ArrayList disponibles = new ArrayList();
+
             float mayor = 0;
             ArbolGeneral auxArbol = null;
 
@@ -35,13 +38,24 @@ namespace juegoIA
             // Por lo tanto, los hijos son las cartas que puede jugar Computer
             foreach(ArbolGeneral arbol in this.minimax.getHijos())
             {
+                disponibles.Add(arbol.getNumCartaRaiz());
                 if(arbol.getPonderacionRaiz() > mayor)
                 {
                     mayor = arbol.getPonderacionRaiz();
                     auxArbol = arbol;
                 }
             }
-
+            Console.WriteLine("Naipes disponibles (Computer):");
+            for (int i = 0; i < disponibles.Count; i++)
+            {
+                Console.Write(disponibles[i].ToString());
+                if (i < disponibles.Count - 1)
+                {
+                    Console.Write(", ");
+                }
+            }
+            Console.WriteLine("");
+            Console.WriteLine("Computer elige: {0}", auxArbol.getNumCartaRaiz());
             this.setMinimax(auxArbol);
 
             return auxArbol.getNumCartaRaiz();

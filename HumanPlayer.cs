@@ -39,7 +39,7 @@ namespace juegoIA
 		
 			Console.WriteLine();
 			if (!random_card) {
-				Console.Write("Ingrese naipe:");
+				Console.Write("Ingrese naipe: ");
 				string entrada = Console.ReadLine();
 				
 				Int32.TryParse(entrada, out carta);
