@@ -22,7 +22,8 @@ namespace juegoIA
             this.cargarArbol(this.minimax, cartasPropias, cartasOponente, limite, turnoOponente);
 
             // Ponderar el arbol
-            this.ponderarArbol(this.minimax);
+            int suma = 0;
+            this.ponderarArbol(this.minimax, ref suma);
         }
 				
 		public override int descartarUnaCarta()
@@ -91,7 +92,7 @@ namespace juegoIA
             }
         }
 
-        public void ponderarArbol(ArbolGeneral arbol)
+        public void ponderarArbol(ArbolGeneral arbol, ref int suma)
         {
             /*  
                 Recorro el arbol hasta llegar a las hojas. El nivel de las hojas es de Computer.
@@ -106,6 +107,7 @@ namespace juegoIA
                 if (arbol.getLimiteRaiz() >= 0 & arbol.getTurnoRaiz() == false)
                 {
                     arbol.setPonderacionRaiz(1);
+                    suma += 1;
                 }
                 // Llego a la útima carta y supero el límite
                 else
@@ -121,14 +123,14 @@ namespace juegoIA
                 List<ArbolGeneral> auxHijos = arbol.getHijos();
                 foreach (ArbolGeneral hijos in auxHijos)
                 {
-                    ponderarArbol(hijos);
+                    ponderarArbol(hijos, ref suma);
 
-                    float suma = 0;
-                    foreach (ArbolGeneral misHijos in hijos.getHijos())
+                    /*foreach (ArbolGeneral misHijos in hijos.getHijos())
                     {
                         suma += misHijos.getPonderacionRaiz();
-                    }
-                    hijos.setPonderacionRaiz(suma);
+                    }*/
+
+                    hijos.setPonderacionRaiz(hijos.getPonderacionRaiz()+1);
                 }
             }
         }
