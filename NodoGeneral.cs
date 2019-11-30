@@ -8,8 +8,7 @@ namespace juegoIA
         private int numCarta; // Numero de carta
         private int limite; // Guarda el límite llegado a ese nodo
         private bool turno; // True para Human, False para Computer
-        private float ponderacion;  // Si es hoja, es igual a 1 si gana Computer y 0 si gana Human
-                                    // Si tiene hijos, sumo las ponderaciones de los hijos y divido por la cantidad de hijos
+        private int ponderacion;  // Si es hoja, es igual a 1 si gana Computer y 0 si gana Human
         private List<NodoGeneral> hijos;
 
         public NodoGeneral(int carta, int lim, bool unTurno)
@@ -36,7 +35,7 @@ namespace juegoIA
             return this.turno;
         }
 
-        public float getPonderacion()
+        public int getPonderacion()
         {
             return this.ponderacion;
         }
@@ -61,7 +60,7 @@ namespace juegoIA
             this.turno = unTurno;
         }
 
-        public void setPonderacion(float dato)
+        public void setPonderacion(int dato)
         {
             this.ponderacion = dato;
         }

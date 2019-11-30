@@ -38,12 +38,12 @@ namespace juegoIA
             return this.getRaiz().getTurno();
         }
 
-        public float getPonderacionRaiz()
+        public int getPonderacionRaiz()
         {
             return this.getRaiz().getPonderacion();
         }
 
-        public void setPonderacionRaiz(float dato)
+        public void setPonderacionRaiz(int dato)
         {
             this.raiz.setPonderacion(dato);
         }

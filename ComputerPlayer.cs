@@ -82,7 +82,7 @@ namespace juegoIA
         public void cargarArbol(ArbolGeneral arbol, List<int> cartasPropias, List<int> cartasOponente, int limite, bool turno)
         {
             // Se va a llamar recursivamente hasta que no haya más cartas para agregar
-            if (cartasPropias.Count != 0 & cartasOponente.Count != 0)
+            if ((cartasPropias.Count != 0 & cartasOponente.Count != 0) | limite >= 0)
             {
                 // Recorro cada carta del oponente, para agregarla en el nodo padre
                 // Console.WriteLine("Cartas por procesar: " + cartasOponente.Count);
@@ -135,17 +135,19 @@ namespace juegoIA
             else
             {
                 List<ArbolGeneral> auxHijos = arbol.getHijos();
+                int sumaRec = 0;
                 foreach (ArbolGeneral hijos in auxHijos)
                 {
-                    ponderarArbol(hijos, ref suma);
+                    ponderarArbol(hijos, ref sumaRec);
 
                     /*foreach (ArbolGeneral misHijos in hijos.getHijos())
                     {
                         suma += misHijos.getPonderacionRaiz();
                     }*/
-
+                    sumaRec += hijos.getPonderacionRaiz();
                     hijos.setPonderacionRaiz(hijos.getPonderacionRaiz()+1);
                 }
+                arbol.setPonderacionRaiz(suma);
             }
         }
 
