@@ -28,7 +28,7 @@ namespace juegoIA
 		public override int descartarUnaCarta()
 		{
             float mayor = 0;
-            ArbolGeneral auxArbol = new ArbolGeneral(0,0,false);
+            ArbolGeneral auxArbol = null;
 
             // Como el turno anterior fue del usuario, la raiz ahora es una carta de Human
             // Por lo tanto, los hijos son las cartas que puede jugar Computer
@@ -56,7 +56,9 @@ namespace juegoIA
                 // entonces mi arbol minimax va a empezar por el nodo que corresponde a la carta de Human
                 if(hijos.getNumCartaRaiz() == carta)
                 {
-                    this.setMinimax(hijos);
+                    ArbolGeneral auxArbol = null;
+                    auxArbol = hijos;
+                    this.setMinimax(auxArbol);
                 }
             }
 
@@ -68,6 +70,7 @@ namespace juegoIA
             if (cartasPropias.Count != 0 & cartasOponente.Count != 0)
             {
                 // Recorro cada carta del oponente, para agregarla en el nodo padre
+                // Console.WriteLine("Cartas por procesar: " + cartasOponente.Count);
                 foreach (int carta in cartasOponente)
                 {
                     // Reduzco el límite
@@ -75,7 +78,7 @@ namespace juegoIA
 
                     // Creo un nodo de tipo ArbolGeneral para agregar al árbol minimax
                     ArbolGeneral nodoCarta = new ArbolGeneral(carta, limite, turno);
-                    this.minimax.agregarHijo(nodoCarta);
+                    arbol.agregarHijo(nodoCarta);
 
                     // Una vez agregado debo sacarlo de la lista cartasOponente
                     List<int> aux = new List<int>(cartasOponente);
@@ -83,7 +86,7 @@ namespace juegoIA
 
                     // LLamo nuevamente al metodo 
                     // pero invirtiendo el orden de las cartasPropias por las cartasOponente(aux)
-                    this.cargarArbol(this.minimax, aux, cartasPropias, limite, !turno);
+                    this.cargarArbol(nodoCarta, aux, cartasPropias, limite, !turno);
                 }
             }
         }
@@ -100,26 +103,32 @@ namespace juegoIA
             if (arbol.esHoja())
             {
                 // Llego a la última carta y no supero el límite
-                if (arbol.getLimiteRaiz() >= 0)
+                if (arbol.getLimiteRaiz() >= 0 & arbol.getTurnoRaiz() == false)
+                {
                     arbol.setPonderacionRaiz(1);
+                }
                 // Llego a la útima carta y supero el límite
-                else 
+                else
+                {
                     arbol.setPonderacionRaiz(0);
+                }
             }
             // Como no es hoja, voy recorriendo cada nodo hasta llegar a una hoja
             // Luego de eso, las hojas van a ir teniendo valor de ponderación
             // entonces voy a poder calcular la ponderación de cada nodo padre
             else
             {
-                foreach (ArbolGeneral hijos in arbol.getHijos())
+                List<ArbolGeneral> auxHijos = arbol.getHijos();
+                foreach (ArbolGeneral hijos in auxHijos)
                 {
                     ponderarArbol(hijos);
+
                     float suma = 0;
                     foreach (ArbolGeneral misHijos in hijos.getHijos())
                     {
                         suma += misHijos.getPonderacionRaiz();
                     }
-                    hijos.setPonderacionRaiz(suma / hijos.getHijos().Count);
+                    hijos.setPonderacionRaiz(suma);
                 }
             }
         }

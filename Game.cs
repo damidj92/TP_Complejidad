@@ -81,6 +81,19 @@ namespace juegoIA
 			this.printWinner();
 		}
 		
-		
-	}
+		public void imprimirResultados()
+        {
+            // Implementar
+        }
+
+        public void imprimirPorJugadas(List<int> cartasJugadas)
+        {
+            // Implementar
+        }
+
+        public void imprimirPorProfundidad(int profundidad)
+        {
+            // Implementar
+        }
+    }
 }

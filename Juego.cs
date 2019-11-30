@@ -6,9 +6,16 @@ namespace juegoIA
 	{
 		public static void Main(string[] args)
 		{
-				Game game = new Game();
-				game.play();
-			    Console.ReadKey();
+            string resp = "si";
+
+            while (resp == "si") {
+                Game game = new Game();
+                game.play();
+                Console.Write("\nDesea seguir jugando? (si/no): ");
+                resp = Console.ReadLine();
+            }
+
+			Console.ReadKey();
 		}
 	}
 }
